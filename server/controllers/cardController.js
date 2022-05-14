@@ -1,13 +1,6 @@
 const Card = require("../models/cardModel");
+const handlerFactory = require("./handlerFactory");
 
-exports.getAllCards = async (req, res, next) => {
-  try {
-    const data = await Card.find();
-    res.status(200).json({
-      status: "success",
-      data,
-    });
-  } catch (error) {
-    console.log(error.message);
-  }
-};
+exports.createCard = handlerFactory.createOne(Card);
+exports.getAllCards = handlerFactory.getAll(Card);
+exports.getCard = handlerFactory.getOne(Card);

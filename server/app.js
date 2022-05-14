@@ -2,6 +2,9 @@ const express = require("express");
 const cors = require("cors");
 const morgan = require("morgan");
 
+const globalErrorHandler = require("./controllers/errorController");
+const AppError = require("./utils/appError");
+
 const cardRouter = require("./routes/cardRoutes");
 
 const app = express();
@@ -13,5 +16,11 @@ app.use(cors());
 if (process.env.NODE_ENV === "development") app.use(morgan("dev"));
 
 app.use("/api/v1/cards", cardRouter);
+
+app.all("*", (req, res, next) => {
+  next(new AppError(`Can't find '${req.originalUrl}' in the server`, 404));
+});
+
+app.use(globalErrorHandler);
 
 module.exports = app;
