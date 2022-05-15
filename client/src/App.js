@@ -1,13 +1,20 @@
 import { useEffect, useState } from "react";
 import { getAllCards } from "./api/fetch";
+import React from "react";
+import { Route, Routes, BrowserRouter } from "react-router-dom";
+import Cards from "./components/page/Cards";
+import GlobalStyles from "./GlobalStyles";
+import Theme from "./Theme";
 
 const App = () => {
     const [cards, setCards] = useState([]);
+    const [theme, setTheme] = useState("dark");
     useEffect(() => {
         const getData = async () => {
             {
                 try {
                     const data = await getAllCards();
+                    console.log(data);
                     setCards(data);
                 } catch (err) {
                     console.log(err);
@@ -17,20 +24,25 @@ const App = () => {
 
         getData();
     }, []);
-
+    // cards.map((card) => {
     return (
-        <div>
-            {cards.map((card) => {
-                return (
-                    <h2
-                        key={card.title}
-                        style={{ border: "1px solid #000", padding: "5px" }}
-                    >
-                        {card.title}
-                    </h2>
-                );
-            })}
-        </div>
+        <Theme themeMode={theme}>
+            <GlobalStyles />
+            <BrowserRouter>
+                <Routes>
+                    <Route path="/" element={<Cards allFranchise={cards} />} />
+                    {/* <Route
+                path="/catalog/:id"
+                element={
+                    <Catalog
+                        folders={this.state.folders}
+                        images={this.state.images}
+                    />
+                }
+            /> */}
+                </Routes>
+            </BrowserRouter>
+        </Theme>
     );
 };
 
