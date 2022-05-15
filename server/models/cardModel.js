@@ -17,6 +17,10 @@ const cardSchema = new mongoose.Schema({
     buyersRequirements: String,
     quartersRequirements: String,
   },
+  createdAt: {
+    type: Date,
+    default: Date.now(),
+  },
 });
 
 const Card = new mongoose.model("Card", cardSchema);

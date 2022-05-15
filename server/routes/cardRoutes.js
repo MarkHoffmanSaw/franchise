@@ -4,6 +4,11 @@ const cardController = require("../controllers/cardController");
 
 const router = express.Router();
 
-router.get("/", cardController.getAllCards);
+router
+  .route("/")
+  .post(cardController.createCard)
+  .get(cardController.getAllCards);
+
+router.get("/:id", cardController.getCard);
 
 module.exports = router;
