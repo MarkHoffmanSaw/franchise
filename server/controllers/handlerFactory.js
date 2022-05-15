@@ -1,4 +1,4 @@
-const APIFeatures = require("../utils/APIFeatures");
+const APIFeatures = require("../utils/apiFeatures");
 
 exports.getAll = (Model) => {
   return async (req, res, next) => {
@@ -13,6 +13,7 @@ exports.getAll = (Model) => {
 
       res.status(200).json({
         status: "success",
+        results: data.length,
         data,
       });
     } catch (error) {
@@ -39,6 +40,7 @@ exports.getOne = (Model) => {
 exports.createOne = (Model) => {
   return async (req, res, next) => {
     const data = await Model.create(req.body);
+
     res.status(200).json({
       status: "success",
       data,

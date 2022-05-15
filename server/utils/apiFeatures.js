@@ -17,6 +17,9 @@ class APIFeatures {
     return this;
   }
 
+  // ?sort=a,b (A-Z)
+  // ?sort=-a,-b (Z-A)
+  // if 'a' the same, then sort to 'b'
   sort() {
     if (this.queryString.sort) {
       const sortBy = this.queryString.sort.split(",").join(" ");
@@ -28,6 +31,7 @@ class APIFeatures {
     return this;
   }
 
+  // ?fields=name (show up)
   limitFields() {
     if (this.queryString.fields) {
       const fields = this.queryString.fields.split(",").join(" ");
@@ -39,6 +43,7 @@ class APIFeatures {
     return this;
   }
 
+  // ?page=num,limit=num (cards per page)
   paginate() {
     const page = +this.queryString.page || 1;
     const limit = +this.queryString.limit || 100;

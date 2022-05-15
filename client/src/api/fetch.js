@@ -6,7 +6,7 @@ export const getAllCards = async () => {
     const result = await data.json(); // []
     return result.data;
   } catch (error) {
-    console.error(error);
+    console.log(error);
   }
 };
 
@@ -16,6 +16,6 @@ export const getOneCard = async (id) => {
     const result = await data.json();
     return result.data;
   } catch (error) {
-    console.error(error);
+    console.log(error);
   }
 };
