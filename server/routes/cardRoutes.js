@@ -7,7 +7,11 @@ const router = express.Router();
 
 router
   .route("/")
-  .post(cardController.createCard)
+  .post(
+    authController.protect,
+    authController.restrictTo("admin"),
+    cardController.createCard
+  )
   .get(cardController.getAllCards);
 
 router

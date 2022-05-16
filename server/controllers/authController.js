@@ -88,7 +88,7 @@ exports.protect = catchAsync(async (req, res, next) => {
     req.headers.authorization.startsWith("Bearer")
   ) {
     token = req.headers.authorization.split(" ")[1];
-  } else if (req.cookies.jwt) {
+  } else if (req.cookies?.jwt) {
     token = req.cookies.jwt;
   }
 
@@ -120,3 +120,15 @@ exports.protect = catchAsync(async (req, res, next) => {
   res.locals.user = currentUser; // for React Components
   next();
 });
+
+// Limitation middleware for an user/admin
+exports.restrictTo =
+  (...roles) =>
+  (req, res, next) => {
+    if (!roles.includes(req.user.role)) {
+      return next(
+        new AppError("You don't have a permission to do this action", 403)
+      );
+    }
+    next();
+  };
