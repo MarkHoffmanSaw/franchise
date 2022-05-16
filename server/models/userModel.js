@@ -23,6 +23,8 @@ const userSchema = new mongoose.Schema({
   password: {
     type: String,
     required: [true, "Please enter your password"],
+    minlength: 8,
+    select: false,
   },
   passwordConfirm: {
     type: String,
@@ -39,7 +41,7 @@ const userSchema = new mongoose.Schema({
   passwordChangedAt: { type: Date },
   passwordResetToken: String,
   passwordResetExpires: Date,
-  // For deleting an user
+  // User activation:
   active: {
     type: Boolean,
     default: true,
@@ -47,11 +49,34 @@ const userSchema = new mongoose.Schema({
   },
 });
 
+// Password encryption
 userSchema.pre("save", async function (next) {
   if (!this.isModified("password")) return next();
 
   this.password = await bcrypt.hash(this.password, 12);
+  this.passwordConfirm = undefined;
+  next();
 });
+
+// Methods:
+userSchema.methods.correctPassword = async function (
+  candidatePassword,
+  password
+) {
+  return await bcrypt.compare(candidatePassword, password);
+};
+
+userSchema.methods.changedPasswordAfter = function (JWTTimestamp) {
+  if (this.passwordChangedAt) {
+    // Date > ms
+    const changedTimestamp = parseInt(
+      this.passwordChangedAt.getTime() / 1000,
+      10
+    );
+    return changedTimestamp > JWTTimestamp;
+  }
+  return false;
+};
 
 const User = new mongoose.model("User", userSchema);
 

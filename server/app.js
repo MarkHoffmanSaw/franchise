@@ -2,8 +2,8 @@ const express = require("express");
 const cors = require("cors");
 const morgan = require("morgan");
 
-const globalErrorHandler = require("./controllers/errorController");
 const AppError = require("./utils/appError");
+const globalErrorHandler = require("./controllers/errorController");
 
 const cardRouter = require("./routes/cardRoutes");
 const userRouter = require("./routes/userRoutes");

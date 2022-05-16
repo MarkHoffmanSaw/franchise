@@ -1,4 +1,5 @@
-// Handlers for errors:
+const AppError = require("../utils/appError");
+
 const handleCastErrorDB = (err) => {
   const message = `Invalid ${err.path}: ${err.value}`;
   return new AppError(message, 400);
@@ -23,35 +24,87 @@ const handleJWTError = () =>
 const handleJWTExpiredError = () =>
   new AppError("Your token has expired! Please log in again", 401);
 
-// Global error handler:
+// Development errors:
+const sendErrDev = (err, req, res) => {
+  // -- BACK-END:
+  if (req.originalUrl.startsWith("/api")) {
+    return res.status(err.statusCode).json({
+      status: err.status,
+      error: err,
+      message: err.message,
+      stack: err.stack,
+    });
+  }
+
+  // -- FRONT-END:
+  console.error("ERROR", err);
+  return res.status(err.statusCode).json({
+    status: err.status,
+    message: "Something went wrong...",
+    error: err.message,
+  });
+};
+
+// Production errors:
+const sendErrProd = (err, req, res) => {
+  // -- BACK-END:
+  if (req.originalUrl.startsWith("/api")) {
+    // - Operational (AppError), trusted error: send message to the client
+    if (err.isOperational) {
+      return res.status(err.statusCode).json({
+        status: err.status,
+        message: err.message,
+      });
+    }
+    // - Programming or other uknowing error: don't leak error details
+    // 1. Log the error
+    console.error("ERROR", err);
+    // 2. Send the message
+    return res.status(500).json({
+      status: "error",
+      message: "Something went wrong",
+    });
+  }
+
+  // -- FRONT-END:
+  // - Operational (AppError), trusted error: send message to the client
+  if (err.isOperational) {
+    console.log(err.message);
+    return res.status(err.statusCode).render("error", {
+      title: "Something went wrong!",
+      msg: err.message,
+    });
+  }
+  // - Programming or other uknowing error: don't leak error details
+  // 1. Log the error
+  console.error("ERROR", err);
+  // 2. Send the message
+  return res.status(500).render("error", {
+    title: "Something went wrong...",
+    msg: "Please try again later",
+  });
+};
+
 module.exports = (err, req, res, next) => {
+  // console.log(err.stack); // where the err happend
+
   err.status = err.status || "failed";
   err.statusCode = err.statusCode || 500;
 
-  let error = { ...err };
-  error.message = err.message;
+  if (process.env.NODE_ENV === "development") {
+    sendErrDev(err, req, res);
+  } else if (process.env.NODE_ENV === "production") {
+    let error = { ...err };
+    error.message = err.message;
 
-  // For production:
-  if (process.env.NODE_ENV === "production")
-    res.status(err.statusCode).json({
-      status: err.status,
-      error: "Something went wrong...",
-    });
+    // Error from 'mongoose':
+    if (err.name === "CastError") error = handleCastErrorDB(error);
+    if (err.code === 11000) error = handleDublicateFieldsDB(error); // or: err.name === 'MongoServerError'
+    if (err._message === "Validation failed")
+      error = handleValidationErrorDB(error);
+    if (err.name === "JsonWebTokenError") error = handleJWTError();
+    if (err.name === "TokenExpiredError") error = handleJWTExpiredError();
 
-  // Errors from 'mongoose':
-  if (err.name === "CastError") error = handleCastErrorDB(error);
-  if (err.code === 11000) error = handleDublicateFieldsDB(error); // or: === 'MongoServerError'
-  if (err._message === "Validation failed")
-    error = handleValidationErrorDB(error);
-  // Errors from JWT:
-  if (err.name === "JsonWebTokenError") error = handleJWTError();
-  if (err.name === "TokenExpiredError") error = handleJWTExpiredError();
-
-  // Another errors:
-  res.status(err.statusCode).json({
-    status: err.status,
-    error: err,
-    message: err.message,
-    stack: err.stack,
-  });
+    sendErrProd(error, req, res);
+  }
 };
