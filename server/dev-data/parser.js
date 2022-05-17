@@ -225,7 +225,7 @@ class ParserCards {
       console.log("THE PARSER WAS STARTED");
       // client.connect();
       const results = await this.parseFranchiseInfo(
-        "https://www.beboss.ru/franchise/search-c-auto"
+        "https://www.beboss.ru/franchise/search"
       );
 
       this.insertToDataBase(results);

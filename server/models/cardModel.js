@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const slugify = require("slugify");
 
 const cardSchema = new mongoose.Schema({
   image: { type: String },
@@ -21,6 +22,12 @@ const cardSchema = new mongoose.Schema({
     type: Date,
     default: Date.now(),
   },
+  slug: String,
+});
+
+cardSchema.pre("save", function (next) {
+  this.slug = slugify(this.title, { lower: true });
+  next();
 });
 
 const Card = new mongoose.model("Card", cardSchema);

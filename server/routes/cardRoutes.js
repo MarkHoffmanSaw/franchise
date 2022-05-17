@@ -5,6 +5,8 @@ const authController = require("../controllers/authController");
 
 const router = express.Router();
 
+router.route("/card-categories").get(cardController.getCardCategories);
+
 router
   .route("/")
   .post(
@@ -17,7 +19,15 @@ router
 router
   .route("/:id")
   .get(cardController.getCard)
-  .patch(cardController.updateCard)
-  .delete(cardController.deleteCard);
+  .patch(
+    authController.protect,
+    authController.restrictTo("admin"),
+    cardController.updateCard
+  )
+  .delete(
+    authController.protect,
+    authController.restrictTo("admin"),
+    cardController.deleteCard
+  );
 
 module.exports = router;
