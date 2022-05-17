@@ -44,7 +44,7 @@ class ParserCards {
               ? `https://www.beboss.ru${selector(element)
                   .find("img.tdb-view__picture")
                   .attr("src")}`
-              : "https://res.cloudinary.com/dwwijk4ok/image/upload/v1640696711/NOT%20DELETE/Yellow_icon.svg_oh0yxs.png";
+              : "";
 
             return resolve({
               image: getImage,
