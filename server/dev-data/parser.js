@@ -223,17 +223,15 @@ class ParserCards {
   async parseData() {
     try {
       console.log("THE PARSER WAS STARTED");
-      // client.connect();
       const results = await this.parseFranchiseInfo(
         "https://www.beboss.ru/franchise/search"
       );
-
-      this.insertToDataBase(results);
+      this.insertToJsonFile(results);
     } catch (error) {
       console.log(error);
     } finally {
       console.log("THE PARSER WAS FINISHED");
-      // client.end();
+
       return;
     }
   }
@@ -241,13 +239,13 @@ class ParserCards {
   ///////////////////////////////////////////////////////////////////////
   // PUSHING TO THE DATA BASE
 
-  insertToDataBase(results) {
+  insertToJsonFile(results) {
     const data = JSON.stringify(results);
     fs.writeFile("cardsInfo.json", data, (err) => {
       if (err) {
         console.log(err);
       } else {
-        console.log("file was written");
+        console.log("File 'cardsInfo.json' was written");
       }
     });
   }
