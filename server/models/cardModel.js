@@ -25,6 +25,9 @@ const cardSchema = new mongoose.Schema({
   slug: String,
 });
 
+cardSchema.index({ "fullDescription.category": 1 });
+cardSchema.index({ slug: 1 });
+
 cardSchema.pre("save", function (next) {
   this.slug = slugify(this.title, { lower: true });
   next();

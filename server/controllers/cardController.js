@@ -3,7 +3,7 @@ const catchAsync = require("../utils/catchAsync");
 const handlerFactory = require("./handlerFactory");
 
 // Queries with cards:
-exports.getCardCategories = catchAsync(async (req, res, next) => {
+exports.getCategoryStats = catchAsync(async (req, res, next) => {
   const stats = await Card.aggregate([
     {
       $group: {
@@ -17,6 +17,18 @@ exports.getCardCategories = catchAsync(async (req, res, next) => {
   res.status(200).json({
     status: "success",
     stats,
+  });
+});
+
+exports.getCardsByCategory = catchAsync(async (req, res, next) => {
+  const data = await Card.find({
+    "fullDescription.category": req.params.category,
+  });
+
+  res.status(200).json({
+    status: "success",
+    results: data.length,
+    data,
   });
 });
 

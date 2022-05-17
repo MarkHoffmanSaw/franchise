@@ -2,7 +2,6 @@ const APIFeatures = require("../utils/apiFeatures");
 const AppError = require("../utils/appError");
 const catchAsync = require("../utils/catchAsync");
 
-// For users:
 exports.getAll = (Model) =>
   catchAsync(async (req, res, next) => {
     const features = new APIFeatures(Model.find(), req.query)
@@ -34,7 +33,6 @@ exports.getOne = (Model) =>
     });
   });
 
-// For admins:
 exports.createOne = (Model) =>
   catchAsync(async (req, res, next) => {
     const doc = await Model.create(req.body);

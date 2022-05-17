@@ -5,7 +5,8 @@ const authController = require("../controllers/authController");
 
 const router = express.Router();
 
-router.route("/card-categories").get(cardController.getCardCategories);
+router.route("/category-stats").get(cardController.getCategoryStats);
+router.route("/category/:category").get(cardController.getCardsByCategory);
 
 router
   .route("/")
