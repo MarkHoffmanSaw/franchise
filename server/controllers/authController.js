@@ -1,8 +1,10 @@
 const jwt = require("jsonwebtoken");
 const { promisify } = require("util");
 const User = require("../models/userModel");
+
 const AppError = require("../utils/appError");
 const catchAsync = require("../utils/catchAsync");
+const Email = require("../utils/email");
 
 // JWT functions
 const createJWT = (id) => {
@@ -45,7 +47,7 @@ exports.signup = catchAsync(async (req, res, next) => {
   });
 
   // Send the email:
-  // ***********
+  await new Email(newUser).sendWelcome();
 
   // Create and send JWT
   sendJWT(newUser, 201, res);
