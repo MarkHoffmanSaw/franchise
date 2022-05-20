@@ -10,9 +10,9 @@ export const getAllCards = async () => {
   }
 };
 
-export const getOneCard = async (id) => {
+export const getOneCard = async (slug) => {
   try {
-    const data = await fetch(`${URL}/cards/:${id}`, { method: "GET" });
+    const data = await fetch(`${URL}/cards/:${slug}`, { method: "GET" });
     const result = await data.json();
     return result.data;
   } catch (error) {

@@ -43,7 +43,7 @@ class APIFeatures {
     return this;
   }
 
-  // ?page=num,limit=num (cards per page)
+  // ?page=num&limit=num (cards per page)
   paginate() {
     const page = +this.queryString.page || 1;
     const limit = +this.queryString.limit || 100;

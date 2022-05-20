@@ -10,7 +10,7 @@ exports.getAll = (Model) =>
       .limitFields() // ?fields=...
       .paginate(); // ?page=...&limit=...
 
-    const doc = await features.query;
+    const doc = await features.query.select("-fullDescription");
 
     res.status(200).json({
       status: "success",
@@ -21,7 +21,9 @@ exports.getAll = (Model) =>
 
 exports.getOne = (Model) =>
   catchAsync(async (req, res, next) => {
-    const doc = await Model.findById(req.params.id);
+    let doc;
+    if (req.params.id) doc = await Model.findById(req.params.id); // for an user
+    if (req.params.slug) doc = await Model.findOne({ slug: req.params.slug }); // for an card
 
     if (!doc) {
       return next(new AppError("No document found with that ID", 404));

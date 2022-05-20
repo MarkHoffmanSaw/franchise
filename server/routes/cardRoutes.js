@@ -18,7 +18,7 @@ router
   .get(cardController.getAllCards);
 
 router
-  .route("/:id")
+  .route("/:slug")
   .get(cardController.getCard)
   .patch(
     authController.protect,
