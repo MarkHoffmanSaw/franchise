@@ -21,9 +21,7 @@ exports.getAll = (Model) =>
 
 exports.getOne = (Model) =>
   catchAsync(async (req, res, next) => {
-    let doc;
-    if (req.params.id) doc = await Model.findById(req.params.id); // for an user
-    if (req.params.slug) doc = await Model.findOne({ slug: req.params.slug }); // for an card
+    const doc = await Model.findById(req.params.id);
 
     if (!doc) {
       return next(new AppError("No document found with that ID", 404));
