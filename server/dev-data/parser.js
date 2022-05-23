@@ -37,17 +37,10 @@ class ParserCards {
 
         selector(".tdb-view__item").each(async (i, element) => {
           const promiseCard = await new Promise(async (resolve, reject) => {
-            const getImage = selector(element)
-              .find("img.tdb-view__picture")
-              .attr("src")
-              .endsWith(".jpg")
-              ? `https://www.beboss.ru${selector(element)
-                  .find("img.tdb-view__picture")
-                  .attr("src")}`
-              : "";
-
             return resolve({
-              image: getImage,
+              image: `https://www.beboss.ru${selector(element)
+                .find("img.tdb-view__picture")
+                .attr("src")}`,
               title: selector(element).find("h3.tdb-view__text").text(),
               description: selector(element)
                 .find("span.fr-card-list__description")
