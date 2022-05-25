@@ -1,6 +1,7 @@
 import { Box, Slider, Typography } from "@mui/material";
 import { useState } from "react";
 import Round from "./Round";
+
 function valuetext(value) {
     return `${value}°C`;
 }
@@ -25,7 +26,11 @@ function SearchByPrice() {
     let step = isRound ? +roundOff : 1;
     let marks = isRound ? true : false;
     return (
-        <>
+        <Box
+            sx={{
+                margin: "20px 0",
+            }}
+        >
             <Typography variant="subtitle2" component="h5">
                 Цена:{" "}
                 <Typography variant="subtitle1" component="span">
@@ -51,7 +56,7 @@ function SearchByPrice() {
                 isRound={isRound}
                 changeIsRound={changeIsRound}
             />
-        </>
+        </Box>
     );
 }
 export default SearchByPrice;
