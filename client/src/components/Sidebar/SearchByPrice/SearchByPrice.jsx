@@ -6,12 +6,24 @@ function valuetext(value) {
 }
 
 function SearchByPrice() {
-    const [price, setPrice] = useState([10000, 100000]);
+    const [price, setPrice] = useState([0, 1000000]);
+    /* Значение по умолчанию совпадает с <FormControlLabel value={50000}/> */
+    const [roundOff, setRoundOff] = useState(50000);
+    const [isRound, SetIsRound] = useState(true);
 
-    const handleChange = (event, newPrice) => {
+    const changePrice = (event, newPrice) => {
         setPrice(newPrice);
     };
 
+    const changeRoundOff = (event) => {
+        setRoundOff(event.target.value);
+    };
+
+    const changeIsRound = (event) => {
+        SetIsRound(event.target.checked);
+    };
+    let step = isRound ? +roundOff : 1;
+    let marks = isRound ? true : false;
     return (
         <>
             <Typography variant="subtitle2" component="h5">
@@ -24,16 +36,21 @@ function SearchByPrice() {
                 <Slider
                     getAriaLabel={() => "Price range"}
                     value={price}
-                    onChange={handleChange}
-                    valueLabelDisplay="auto"
+                    onChange={changePrice}
                     getAriaValueText={valuetext}
                     size="small"
-                    min={1000}
-                    step={1000}
+                    marks={marks}
+                    min={0}
+                    step={step}
                     max={600000}
                 />
             </Box>
-            <Round />
+            <Round
+                roundOff={roundOff}
+                changeRoundOff={changeRoundOff}
+                isRound={isRound}
+                changeIsRound={changeIsRound}
+            />
         </>
     );
 }

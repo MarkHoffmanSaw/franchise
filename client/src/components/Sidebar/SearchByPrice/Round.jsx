@@ -1,4 +1,3 @@
-import { useState } from "react";
 import Radio from "@mui/material/Radio";
 import RadioGroup from "@mui/material/RadioGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
@@ -7,19 +6,7 @@ import FormLabel from "@mui/material/FormLabel";
 import FormGroup from "@mui/material/FormGroup";
 import Switch from "@mui/material/Switch";
 
-function Round() {
-    /* Значение по умолчанию совпадает с <FormControlLabel value={50000}/> */
-    const [roundOff, setRoundOff] = useState(50000);
-    const [isRound, SetIsRound] = useState(true);
-
-    const changeRound = (event) => {
-        setRoundOff(event.target.value);
-    };
-
-    const changeIsRound = (event) => {
-        SetIsRound(event.target.checked);
-    };
-
+function Round({ roundOff, changeRoundOff, isRound, changeIsRound }) {
     return (
         <FormControl>
             <FormLabel id="round-to-label">
@@ -41,7 +28,7 @@ function Round() {
                 aria-labelledby="round-to-label"
                 name="round-to"
                 value={roundOff}
-                onChange={changeRound}
+                onChange={changeRoundOff}
             >
                 <FormControlLabel
                     value={10000}
