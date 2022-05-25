@@ -1,9 +1,10 @@
 import { Outlet } from "react-router-dom";
+import Header from "./Header/Header";
 
 const Layout = () => {
     return (
         <div>
-            <header>HEADER</header>
+            <Header />
             <div style={{ display: "flex" }}>
                 <div>Sidebar</div>
                 <Outlet></Outlet>

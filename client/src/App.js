@@ -4,7 +4,7 @@ import React from "react";
 import { Route, Routes, BrowserRouter } from "react-router-dom";
 import { Layout } from "./components/Layout";
 
-const App = () => {
+function App() {
     const [cards, setCards] = useState([]);
     const [theme, setTheme] = useState("dark");
     useEffect(() => {
@@ -32,6 +32,6 @@ const App = () => {
             </Routes>
         </BrowserRouter>
     );
-};
+}
 
 export default App;
