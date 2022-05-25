@@ -1,10 +1,17 @@
 import { Grid } from "@mui/material";
-import Card from "./Card/Card";
+import CardFranchise from "./CardFranchise/CardFranchise";
 function Cards({ allFranchise }) {
     return (
-        <Grid container spacing={1}>
+        <Grid container spacing={2} sx={{ padding: "0 20px" }}>
             {allFranchise.map((card) => {
-                return <Card key={card._id} card={card} />;
+                return (
+                    <CardFranchise
+                        key={card._id}
+                        title={card.title}
+                        image={card.image}
+                        description={card.description}
+                    />
+                );
             })}
         </Grid>
     );

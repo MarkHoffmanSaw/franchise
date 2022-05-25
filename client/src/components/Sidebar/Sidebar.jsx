@@ -1,11 +1,3 @@
-import {
-    AppBar,
-    Toolbar,
-    Typography,
-    Button,
-    Menu,
-    MenuItem,
-} from "@mui/material";
 import SearchByName from "./SearchByName/SearchByName";
 
 function Sidebar() {

@@ -7,16 +7,14 @@ import Cards from "./components/Cards/Cards";
 
 function App() {
     const [cards, setCards] = useState([]);
-    const [theme, setTheme] = useState("dark");
+
     useEffect(() => {
         const getData = async () => {
-            {
-                try {
-                    const data = await getAllCards();
-                    setCards(data);
-                } catch (err) {
-                    console.log(err);
-                }
+            try {
+                const data = await getAllCards();
+                setCards(data);
+            } catch (err) {
+                console.log(err);
             }
         };
 
