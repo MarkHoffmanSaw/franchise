@@ -19,7 +19,7 @@ function Header() {
         setAnchorEl(null);
     };
     return (
-        <AppBar position="static">
+        <AppBar position="static" sx={{ mb: 2 }}>
             <Toolbar>
                 <Typography variant="h6" component="h1" sx={{ flexGrow: 1 }}>
                     Найди франшизу

@@ -3,6 +3,7 @@ import { getAllCards } from "./api/fetch";
 import React from "react";
 import { Route, Routes, BrowserRouter } from "react-router-dom";
 import { Layout } from "./components/Layout";
+import Cards from "./components/Cards/Cards";
 
 function App() {
     const [cards, setCards] = useState([]);
@@ -26,8 +27,7 @@ function App() {
         <BrowserRouter>
             <Routes>
                 <Route path="/" element={<Layout />}>
-                    {/* <Route path="/" element={<Cards allFranchise={cards} />} /> */}
-                    <Route index element={<div>CARDS</div>} />
+                    <Route index element={<Cards allFranchise={cards} />} />
                 </Route>
             </Routes>
         </BrowserRouter>

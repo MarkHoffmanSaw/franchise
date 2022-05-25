@@ -19,7 +19,6 @@ function SearchByName() {
                 fullWidth
                 label="Название"
                 type="search"
-                defaultValue=""
                 size="small"
                 value={name}
                 onChange={handleChange}

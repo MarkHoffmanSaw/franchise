@@ -10,7 +10,7 @@ import SearchByName from "./SearchByName/SearchByName";
 
 function Sidebar() {
     return (
-        <div style={{ padding: "10px 20px" }}>
+        <div style={{ padding: "0 20px" }}>
             <SearchByName />
         </div>
     );
