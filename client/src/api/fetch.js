@@ -24,7 +24,7 @@ export const getAllCategories = async () => {
   try {
     const data = await fetch(`${URL}/cards/category-stats`, { method: "GET" });
     const result = await data.json();
-    return result.doc; // [ { category: "name", numsCards: 100 }, {}, {} ]
+    return result.stats; // [ { category: "name", numsCards: 100 }, {}, {} ]
   } catch (error) {
     console.log(error);
   }
@@ -36,7 +36,7 @@ export const getCardsByCategory = async (category) => {
       method: "GET",
     });
     const result = await data.json();
-    return result.doc;
+    return result.data;
   } catch (error) {
     console.log(error);
   }
