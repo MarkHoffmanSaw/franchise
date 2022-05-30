@@ -12,7 +12,7 @@ export const getAllCards = async () => {
 
 export const getOneCard = async (id) => {
   try {
-    const data = await fetch(`${URL}/cards/:${id}`, { method: "GET" });
+    const data = await fetch(`${URL}/cards/${id}`, { method: "GET" });
     const result = await data.json();
     return result.doc;
   } catch (error) {
