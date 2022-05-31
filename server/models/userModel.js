@@ -91,7 +91,7 @@ userSchema.methods.createRandomResetToken = function () {
     .update(resetToken)
     .digest("hex");
 
-  this.passwordResetExpires = Date.now() * 1000 * 60 * 10; // exp: 10min
+  this.passwordResetExpires = Date.now() + 1000 * 60 * 10; // exp: 10min
 
   // Send to the email (original)
   return resetToken;
