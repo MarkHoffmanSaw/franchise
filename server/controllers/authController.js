@@ -6,6 +6,10 @@ const AppError = require("../utils/appError");
 const catchAsync = require("../utils/catchAsync");
 const Email = require("../utils/email");
 
+// *****************************
+// OPERATIONS WITH AUTHEFICATION
+// *****************************
+
 // JWT functions
 const createJWT = (id) => {
   return jwt.sign({ id }, process.env.JWT_SECRET_KEY, {
@@ -134,3 +138,37 @@ exports.restrictTo =
     }
     next();
   };
+
+// **************************
+// OPERATIONS WITH A PASSWORD
+// **************************
+
+exports.forgotPassword = catchAsync(async (req, res, next) => {
+  // Find an user
+  const { email } = req.body;
+  const user = await User.findOne({ email });
+  if (!user) return next(new AppError("No user found with that email", 404));
+
+  // Create a reset token
+  const resetToken = user.createRandomResetToken();
+  user.save({ validateBeforeSave: false });
+
+  // Send a reset token to the email
+  try {
+    const text = `Please follow the URL for reseting your password: ${
+      req.protocol
+    }://${req.get("host")}/api/v1/users/resetPassword/${resetToken}`;
+
+    await new Email(user).sendPasswordReset(text);
+
+    res.json({ status: "success", message: "Token was sent to the email" });
+  } catch (error) {
+    user.passwordResetToken = undefined;
+    user.passwordResetExpires = undefined;
+    user.save({ validateBeforeSave: false });
+
+    return next(new AppError("There is an error sending the email", 500));
+  }
+});
+
+exports.resetPassword = catchAsync(async (req, res, next) => {});

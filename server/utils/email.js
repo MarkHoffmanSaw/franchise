@@ -49,4 +49,8 @@ module.exports = class Email {
   }
 
   // sendPassReset(){}
+  async sendPasswordReset(text) {
+    const subject = "Reseting your password";
+    await this.send(subject, text);
+  }
 };
