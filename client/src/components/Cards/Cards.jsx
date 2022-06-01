@@ -1,7 +1,6 @@
 import { Grid } from "@mui/material";
 import CardFranchise from "./CardFranchise/CardFranchise";
 function Cards({ allFranchise }) {
-    console.log(allFranchise);
     return (
         <Grid container spacing={2} sx={{ padding: "0 20px" }}>
             {allFranchise.map((card) => {
@@ -11,6 +10,9 @@ function Cards({ allFranchise }) {
                         title={card.title}
                         image={card.image}
                         description={card.description}
+                        id={card._id}
+                        priceMin={card.priceMin}
+                        priceMax={card.priceMax}
                     />
                 );
             })}

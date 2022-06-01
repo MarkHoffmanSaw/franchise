@@ -31,22 +31,22 @@ function Round({ roundOff, changeRoundOff, isRound, changeIsRound }) {
                 onChange={changeRoundOff}
             >
                 <FormControlLabel
-                    value={10000}
+                    value={500000}
                     disabled={!isRound}
                     control={<Radio />}
-                    label="10K"
+                    label="500K"
                 />
                 <FormControlLabel
-                    value={50000}
+                    value={1000000}
                     disabled={!isRound}
                     control={<Radio />}
-                    label="50K"
+                    label="1M"
                 />
                 <FormControlLabel
-                    value={100000}
+                    value={10000000}
                     disabled={!isRound}
                     control={<Radio />}
-                    label="100K"
+                    label="10M"
                 />
             </RadioGroup>
         </FormControl>

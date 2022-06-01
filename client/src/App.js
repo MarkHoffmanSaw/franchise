@@ -4,6 +4,7 @@ import React from "react";
 import { Route, Routes, BrowserRouter } from "react-router-dom";
 import { Layout } from "./components/Layout";
 import Cards from "./components/Cards/Cards";
+import FranchiseDescription from "./components/FranchiseDescription/FranchiseDescription";
 
 function App() {
     const [cards, setCards] = useState([]);
@@ -26,6 +27,7 @@ function App() {
             <Routes>
                 <Route path="/" element={<Layout />}>
                     <Route index element={<Cards allFranchise={cards} />} />
+                    <Route path=":id" element={<FranchiseDescription />} />
                 </Route>
             </Routes>
         </BrowserRouter>

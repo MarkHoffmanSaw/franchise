@@ -7,9 +7,9 @@ function valuetext(value) {
 }
 
 function SearchByPrice() {
-    const [price, setPrice] = useState([0, 1000000]);
+    const [price, setPrice] = useState([0, 10000000]);
     /* Значение по умолчанию совпадает с <FormControlLabel value={50000}/> */
-    const [roundOff, setRoundOff] = useState(50000);
+    const [roundOff, setRoundOff] = useState(500000);
     const [isRound, SetIsRound] = useState(true);
 
     const changePrice = (event, newPrice) => {
@@ -24,7 +24,7 @@ function SearchByPrice() {
         SetIsRound(event.target.checked);
     };
     let step = isRound ? +roundOff : 1;
-    let marks = isRound ? true : false;
+    console.log(step);
     return (
         <Box
             sx={{
@@ -34,7 +34,7 @@ function SearchByPrice() {
             <Typography variant="subtitle2" component="h5">
                 Цена:{" "}
                 <Typography variant="subtitle1" component="span">
-                    {price[0]}-{price[1]}
+                    {price[0].toLocaleString()} — {price[1].toLocaleString()}
                 </Typography>
             </Typography>
             <Box sx={{ width: "100%" }}>
@@ -44,10 +44,9 @@ function SearchByPrice() {
                     onChange={changePrice}
                     getAriaValueText={valuetext}
                     size="small"
-                    marks={marks}
                     min={0}
                     step={step}
-                    max={600000}
+                    max={99000000}
                 />
             </Box>
             <Round
