@@ -39,14 +39,14 @@ function CardFranchise({ image, title, description, priceMin, priceMax, id }) {
                     <Typography variant="subtitle1" component="p">
                         {description}
                     </Typography>
-                    <Typography variant="h6" component="div">
-                        <Typography variant="h6" component="span">
-                            {priceMin}
+                    <Typography component="div">
+                        <Typography variant="subtitle2" component="span">
+                            {priceMin.toLocaleString()}
                             <CurrencyRubleIcon sx={{ fontSize: "inherit" }} />
                         </Typography>
                         —
-                        <Typography variant="h6" component="span">
-                            {priceMax}
+                        <Typography variant="subtitle2" component="span">
+                            {priceMax.toLocaleString()}
                             <CurrencyRubleIcon sx={{ fontSize: "inherit" }} />
                         </Typography>
                     </Typography>

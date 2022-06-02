@@ -4,7 +4,7 @@ import SearchByPrice from "./SearchByPrice/SearchByPrice";
 
 function Sidebar() {
     return (
-        <div style={{ padding: "0 20px", width: "300px", flexShrink: 0 }}>
+        <div style={{ padding: "0 20px", width: "250px", flexShrink: 0 }}>
             <SearchByName />
             <SearchByPrice />
             <SearchByCategory />

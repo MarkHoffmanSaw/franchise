@@ -23,7 +23,7 @@ function SearchByPrice() {
     const changeIsRound = (event) => {
         SetIsRound(event.target.checked);
     };
-    let step = isRound ? +roundOff : 1;
+    let step = isRound ? +roundOff : 1000;
     console.log(step);
     return (
         <Box

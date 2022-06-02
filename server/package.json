@@ -1,33 +1,36 @@
 {
-  "name": "franchises-project",
-  "version": "1.0.0",
-  "description": "franchises cards and users",
-  "main": "app.js",
-  "scripts": {
-    "start": "nodemon server.js",
-    "start:prod": "NODE_ENV=production nodemon server.js"
-  },
-  "author": "Artur Sopov & Semen Purnemtcev",
-  "license": "ISC",
-  "dependencies": {
-    "axios": "^0.27.2",
-    "bcryptjs": "^2.4.3",
-    "cors": "^2.8.5",
-    "crypto": "^1.0.1",
-    "dotenv": "^16.0.1",
-    "express": "^4.18.1",
-    "http": "^0.0.1-security",
-    "jsonwebtoken": "^8.5.1",
-    "mongoose": "^6.3.3",
-    "morgan": "^1.10.0",
-    "nodemailer": "^6.7.5",
-    "nodemon": "^2.0.16",
-    "slugify": "^1.6.5",
-    "util": "^0.12.4",
-    "validator": "^13.7.0",
-    "websocket": "^1.0.34"
-  },
-  "devDependencies": {
-    "cheerio": "^1.0.0-rc.10"
-  }
+    "name": "franchises-project",
+    "version": "1.0.0",
+    "description": "franchises cards and users",
+    "main": "app.js",
+    "scripts": {
+        "server": "nodemon server.js",
+        "client": "cd ../ && npm start --prefix client",
+        "dev": "concurrently \"npm run server\" \"npm run client\"",
+        "start:prod": "NODE_ENV=production nodemon server.js"
+    },
+    "author": "Artur Sopov & Semen Purnemtcev",
+    "license": "ISC",
+    "dependencies": {
+        "axios": "^0.27.2",
+        "bcryptjs": "^2.4.3",
+        "cors": "^2.8.5",
+        "crypto": "^1.0.1",
+        "dotenv": "^16.0.1",
+        "express": "^4.18.1",
+        "http": "^0.0.1-security",
+        "jsonwebtoken": "^8.5.1",
+        "mongoose": "^6.3.3",
+        "morgan": "^1.10.0",
+        "nodemailer": "^6.7.5",
+        "nodemon": "^2.0.16",
+        "slugify": "^1.6.5",
+        "util": "^0.12.4",
+        "validator": "^13.7.0",
+        "websocket": "^1.0.34"
+    },
+    "devDependencies": {
+        "cheerio": "^1.0.0-rc.10",
+        "concurrently": "^7.2.1"
+    }
 }

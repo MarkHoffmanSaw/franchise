@@ -23,7 +23,7 @@ const FranchiseDescription = () => {
 
         getFullDescription();
     }, [id]);
-
+    console.log(description);
     return (
         <div>
             <MainInfo

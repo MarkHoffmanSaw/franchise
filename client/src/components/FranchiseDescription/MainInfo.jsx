@@ -37,14 +37,14 @@ const MainInfo = ({ title, description, foundYear, priceMin, priceMax }) => {
                     <Typography variant="body1" component="p">
                         Минимальная цена:{" "}
                         <Typography variant="subtitle2" component="span">
-                            {priceMin}
+                            {priceMin?.toLocaleString()}
                         </Typography>
                         <CurrencyRubleIcon sx={{ fontSize: "inherit" }} />
                     </Typography>
                     <Typography variant="body1" component="p">
                         Максимальная цена:{" "}
                         <Typography variant="subtitle2" component="span">
-                            {priceMax}
+                            {priceMax?.toLocaleString()}
                         </Typography>
                         <CurrencyRubleIcon sx={{ fontSize: "inherit" }} />
                     </Typography>
