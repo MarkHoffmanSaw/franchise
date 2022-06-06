@@ -25,7 +25,7 @@ function App() {
     return (
         <BrowserRouter>
             <Routes>
-                <Route path="/" element={<Layout />}>
+                <Route path="/" element={<Layout setCards={setCards} />}>
                     <Route index element={<Cards allFranchise={cards} />} />
                     <Route path=":id" element={<FranchiseDescription />} />
                 </Route>

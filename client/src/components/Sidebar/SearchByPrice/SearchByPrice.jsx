@@ -24,7 +24,7 @@ function SearchByPrice() {
         SetIsRound(event.target.checked);
     };
     let step = isRound ? +roundOff : 1000;
-    console.log(step);
+
     return (
         <Box
             sx={{
